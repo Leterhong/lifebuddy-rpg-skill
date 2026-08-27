@@ -33,32 +33,12 @@
    - "帮我写条朋友圈文案"
    - "我最近成长得怎么样？"
 
-## 质量自检（自动评测适配）
-本 Skill 内置隔离式自检，**绝不触碰真实用户档案**：
-```bash
-python scripts/lifebuddy.py self-test
-```
-- 退出码 `0` = 全链路通过（init/画像/副本/习惯/树洞/可视化/边界/升级均不崩溃且数值自洽）。
-- 退出码 `1` = 存在失败项，会列出具体原因。
-- 自检在临时目录运行，结束后自动清理，可安全重复执行，便于 AstronClaw 质量评测与 CI 验证。
-
 ## 技术要点
 - **零外部依赖**：状态脚本仅用 Python 标准库（`requirements.txt` 注明无需安装任何包）。
 - **本地优先**：所有记忆写入 `{baseDir}/data/profile.json`，不联网、不外传。
 - **优雅降级**：无状态文件自动初始化；图像失败仅跳过多模态；异常输入不崩溃。
 - **可视化成长**：`get`/成长档案馆输出 ASCII 五维条形图 + 累计经验轨迹（任何环境可读），并可选附 Mermaid 图（不支持时仅忽略该块）。
-- **结构清晰**：`SKILL.md`（主指令）+ `references/`（规则/ schema/ 评分对照/ 提示词）+ `scripts/`（状态管理，含 self-test）+ `examples/`（完整样例）。
-
-## 评分维度对照（专家榜 100 分）
-为便于评审核验，逐项对照见 [`references/scoring-map.md`](references/scoring-map.md)。摘要：
-| 维度 | 分值 | 本作品对应 |
-|---|---|---|
-| 运行稳定性与鲁棒性 | 30 | 全本地、零网络、异常不崩、图像降级、self-test 隔离验证 |
-| 创新性与应用价值 | 30 | 生活助理×RPG×多模态×记忆 融合，首例，覆盖六高频场景 |
-| 结果质量 | 20 | 每模块固定结构化输出，examples 可核验 |
-| 技术设计与场景编排 | 10 | 多模块+记忆+多模态协同，职责清晰 |
-| 工程规范与文档完整性 | 5 | SKILL/README/references/examples/requirements 齐全 |
-| 安全合规 | 5 | 仅本地、无外传、无凭证、红线清单明确 |
+- **结构清晰**：`SKILL.md`（主指令）+ `references/`（规则 / schema / 维度对照 / 提示词）+ `scripts/`（状态管理，含 self-test）+ `examples/`（完整样例）。
 
 ## 目录结构
 ```
@@ -69,7 +49,7 @@ lifebuddy-rpg/
 ├── references/
 │   ├── rpg-rules.md              # 成长数值规则
 │   ├── state-schema.md           # profile.json 结构
-│   ├── scoring-map.md            # 评分维度对照表（专家榜自证）
+│   ├── scoring-map.md            # 评分维度对照表
 │   └── module-prompts.md         # 六大模块提示词与输出规范
 ├── scripts/
 │   └── lifebuddy.py              # 状态与记忆管理（stdlib only，含 self-test）
@@ -79,7 +59,7 @@ lifebuddy-rpg/
 ```
 
 ## 安全合规与红线
-仅本地读写技能目录内 `data/`；不访问用户其他文件、不发起网络请求、不索取任何凭证；不删除技能外文件。用户动态文本不生成可点击外部链接。详细红线与证据见 `references/scoring-map.md` 与 `SKILL.md` 第七节。
+仅本地读写技能目录内 `data/`；不访问用户其他文件、不发起网络请求、不索取任何凭证；不删除技能外文件。用户动态文本不生成可点击外部链接。详细红线见 `references/scoring-map.md` 与 `SKILL.md` 第七节。
 
 ---
 © 2026 Leterhong · MIT License
