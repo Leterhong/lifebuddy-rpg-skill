@@ -1,0 +1,7 @@
+# lifebuddy-rpg 运行依赖说明
+# 本 Skill 仅依赖 Python 3 标准库（json / os / sys / argparse / datetime / tempfile / shutil），
+# 无需 pip install 任何第三方包。
+# 运行环境要求：Python 3.8+
+# 使用方式：
+#   python scripts/lifebuddy.py <subcommand> [args]
+#   python scripts/lifebuddy.py self-test   # 隔离式自检，验证不崩溃与数值自洽
